@@ -1,0 +1,7 @@
+# Use mod_rewrite to route all requests to the WSGI application
+RewriteEngine On
+
+# If the requested file or directory doesn't exist, route the request to wsgi.py
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ wsgi.py/$1 [QSA,L]

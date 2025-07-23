@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Index</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap"> 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Skynet Solutions</h1>
+        <div class="option-bar">
+            <button onclick="applyFilter('today')">Today</button>
+            <button onclick="applyFilter('week')">This Week</button>
+            <button onclick="applyFilter('month')">This Month</button>
+            <button onclick="applyFilter('all')">All Data</button>
+            <button id="specificDateBtn" onclick="showDatePopup()">Specific Date</button>
+            <button id="specificMonthBtn" onclick="showMonthPopup()">Specific Month</button>
+            <button id="employeeFilterBtn" onclick="showEmployeePopup()">Filter by Employee</button>
+            <button id="logoutBtn" onclick="logout()">Logout</button>
+        </div>
+    </header>
+
+    <!-- Popup for Date Filter -->
+    <div id="datePopup" class="popup">
+        <h3>Select Date</h3>
+        <input type="date" id="specificDateInput">
+        <button onclick="applySpecificDateFilter()">Filter</button>
+        <button onclick="hidePopup('datePopup')">Close</button>
+    </div>
+
+    <!-- Popup for Month Filter -->
+    <div id="monthPopup" class="popup">
+        <h3>Select Month</h3>
+        <input type="month" id="specificMonthInput">
+        <button onclick="applySpecificMonthFilter()">Filter</button>
+        <button onclick="hidePopup('monthPopup')">Close</button>
+    </div>
+
+    <!-- Popup for Employee Filter -->
+    <div id="employeePopup" class="popup">
+        <h3>Select Employee</h3>
+        <select id="employeeSelect">
+            {% for employee in employee_names %}
+            <option value="{{ employee }}">{{ employee }}</option>
+            {% endfor %}
+        </select>
+        <button onclick="applyEmployeeFilter()">Filter</button>
+        <button onclick="hidePopup('employeePopup')">Close</button>
+    </div>
+
+    <main>
+        <h2>Service Data</h2>
+
+        <div class="chart-container">
+            <canvas id="employeePerformanceChart"></canvas>
+        </div>
+
+        <div class="table-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Employee</th>
+                        <th>Problem</th>
+                        <th>Status</th>
+                        <th>Support Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in data %}
+                    <tr>
+                        <td>{{ item.employee }}</td>
+                        <td>{{ item.problem }}</td>
+                        <td>{{ item.status_name }}</td>
+                        <td>{{ item.support_date }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="summary-cards">
+            <div class="card">
+                <h3>Closed Issues</h3>
+                <p id="closed-issues">{{ closed_issues }}</p>
+            </div>
+            <div class="card">
+                <h3>Open Issues</h3>
+                <p id="open-issues">{{ open_issues }}</p>
+            </div>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-3d"></script>
+    <!-- Injecting employeePerformanceData into the HTML -->
+
+<<<<<<< Tabnine <<<<<<<
+<script>
+    window.employeePerformanceData = {{ employee_performance | tojson | safe }};
+</script>
+>>>>>>> Tabnine >>>>>>>
+
+
+   <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
